@@ -1,0 +1,12 @@
+---
+- name: install zsh
+  apt:
+    name: zsh
+    state: latest
+- name: '{{ student_account }} user'
+  user: 
+    name: "{{ student_account }}"
+    comment: "Student Account"
+    password: $6$XHEzcCODbBtG4z.$ouGlgmAkXfOLZDhWy6SVPM7JSPatutckHKvvmnzat5MiCItBEbclskSeWPiceMVLlu4JvHwuXbuzSrbnLayDs0
+    shell: /bin/zsh
+    state: present

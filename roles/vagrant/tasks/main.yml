@@ -1,0 +1,23 @@
+- name: virtualbox repository
+  apt_repository:
+    repo: "deb http://download.virtualbox.org/virtualbox/debian xenial contrib"
+    state: present
+
+- name: virtualbox 2016 key
+  apt_key:
+    url: http://www.virtualbox.org/download/oracle_vbox_2016.asc
+    state: present
+- name: virtualbox key
+  apt_key:
+    url: http://www.virtualbox.org/download/oracle_vbox.asc
+    state: present
+
+- name: install virtualbox
+  apt:
+    name: virtualbox-5.0
+    update_cache: yes
+    state: present
+
+- name: install vagrant
+  apt:
+    deb: http://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb

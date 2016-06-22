@@ -1,0 +1,27 @@
+---
+- name: install gnome-tweak-tools
+  apt: 
+    name: gnome-tweak-tool
+    state: latest
+    update_cache: yes
+    cache_valid_time: "{{ apt_cache_valid_time }}"
+- name: hidpi display factor
+  gsetting:
+    user: "{{ student_account }}"
+    key: org.gnome.settings-daemon.plugins.xsettings.overrides
+    value: "[{'Gdk/WindowScalingFactor', <2>}]"
+- name: hidpi scaling
+  gsetting:
+    user: "{{ student_account }}"
+    key: org.gnome.desktop.interface.scaling-factor
+    value: 'uint32 2'
+- name: desktop interface scaling-factor
+  dconf:
+    user: "{{ student_account }}"
+    key: /org/gnome/desktop/interface/scaling-factor
+    value: "uint32 2"
+- name: user-interface scale-factor
+  dconf:
+    user: "{{ student_account }}"
+    key: /org/gnome/user-interface/scale-factor
+    value: "{'eDP1': 16}"

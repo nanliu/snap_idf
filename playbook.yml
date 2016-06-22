@@ -1,0 +1,10 @@
+---
+- hosts: lenovo
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    #- accounts
+    #- hidpi
+    #- docker
+    - vagrant
