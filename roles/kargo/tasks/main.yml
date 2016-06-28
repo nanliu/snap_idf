@@ -1,0 +1,22 @@
+- name: kargo repo
+  git:
+    repo: https://github.com/kubespray/kargo.git
+    dest: "/home/{{ student_account }}/kargo"
+    accept_hostkey: yes
+  become: yes
+  become_user: "{{ student_account }}"
+
+- name: ansible repo
+  apt_repository:
+    repo: ppa:ansible/ansible
+
+- name: install ansible
+  apt:
+    name: ansible
+    update_cache: yes
+    state: latest
+
+- name: install python-netaddr
+  apt:
+    name: python-netaddr
+    state: latest

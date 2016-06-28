@@ -18,6 +18,9 @@
     update_cache: yes
     state: present
 
+- name: virtualbox kernel driver
+  shell: /sbin/rcvboxdrv status | grep not && /sbin/rcvboxdrv setup || true
+
 - name: install vagrant
   apt:
     deb: http://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb

@@ -8,3 +8,4 @@
     #- hidpi
     #- docker
     - vagrant
+    - kargo

@@ -5,6 +5,8 @@
     state: latest
     update_cache: yes
     cache_valid_time: "{{ apt_cache_valid_time }}"
+# NOTE: Not sure if the first item is needed.
+# settings obtained from dconf monitor /
 - name: hidpi display factor
   gsetting:
     user: "{{ student_account }}"
