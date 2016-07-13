@@ -3,9 +3,12 @@
   become: yes
   become_user: root
   become_method: sudo
+  environment:
+    http_proxy: http://proxy-chain.intel.com:911
+    https_proxy: http://proxy-chain.intel.com:911
   roles:
-    #- accounts
+    - accounts
     #- hidpi
-    #- docker
+    - docker
     - vagrant
     - kargo

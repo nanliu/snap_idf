@@ -1,12 +1,27 @@
 ---
-- name: install zsh
+- name: disable sudoers requiretty
+  lineinfile:
+    dest: /etc/sudoers
+    line: 'Defaults !requiretty'
+    state: present
+  vars:
+      ansible_ssh_pipelining: no
+
+- name: install student tools
   apt:
-    name: zsh
+    name: "{{ item }}"
     state: latest
-- name: '{{ student_account }} user'
+  with_items:
+    - jq
+    - vim
+    - zsh
+
+- name: add student accounts
   user: 
-    name: "{{ student_account }}"
-    comment: "Student Account"
+    name: "{{ item }}"
+    comment: "Student {{ item }} account"
     password: $6$XHEzcCODbBtG4z.$ouGlgmAkXfOLZDhWy6SVPM7JSPatutckHKvvmnzat5MiCItBEbclskSeWPiceMVLlu4JvHwuXbuzSrbnLayDs0
     shell: /bin/zsh
     state: present
+  with_items: "{{ student_users }}"
+  when: student_users is defined
