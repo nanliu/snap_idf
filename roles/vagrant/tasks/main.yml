@@ -1,26 +1,35 @@
-- name: virtualbox repository
+- name: add virtualbox repository
   apt_repository:
-    repo: "deb http://download.virtualbox.org/virtualbox/debian xenial contrib"
+    repo: "deb http://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} contrib"
     state: present
 
-- name: virtualbox 2016 key
+- name: add virtualbox repository key
   apt_key:
-    url: http://www.virtualbox.org/download/oracle_vbox_2016.asc
+    url: "{{ item }}"
     state: present
-- name: virtualbox key
-  apt_key:
-    url: http://www.virtualbox.org/download/oracle_vbox.asc
-    state: present
+  with_items:
+    - http://www.virtualbox.org/download/oracle_vbox.asc
+    - http://www.virtualbox.org/download/oracle_vbox_2016.asc
+
+- name: check virtualbox kernel driver
+  command: /sbin/rcvboxdrv status | grep "are loaded"
+  register: vbox_driver
+  changed_when: False
+  ignore_errors: True
+
+- name: install vagrant
+  apt:
+    deb: http://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
+
+- name: install virtualbox kernel driver
+  command: /sbin/rcvboxdrv setup
+  when: vbox_driver|failed
+  notify:
+    - restart computer
+    - wait for restart
 
 - name: install virtualbox
   apt:
     name: virtualbox-5.0
     update_cache: yes
     state: present
-
-- name: virtualbox kernel driver
-  shell: /sbin/rcvboxdrv status | grep not && /sbin/rcvboxdrv setup || true
-
-- name: install vagrant
-  apt:
-    deb: http://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb

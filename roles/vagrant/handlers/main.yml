@@ -1,0 +1,16 @@
+- name: restart computer
+  command: shutdown -r now "install virtualbox kernel driver"
+  poll: 0
+  ignore_errors: true
+  vars:
+      ansible_ssh_pipelining: no
+
+- name: wait for restart
+  local_action:
+    module: wait_for
+      host="{{ ansible_ssh_host | default(inventory_hostname) }}"
+      port=22
+      state=started
+      delay=10
+      timeout=300
+  become: false
