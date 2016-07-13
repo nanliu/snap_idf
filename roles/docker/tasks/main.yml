@@ -31,15 +31,15 @@
     name: docker
     state: present
 
-- name: Add user(s) to docker group
+- name: add user(s) to docker group
   user:
     name: "{{ item }}"
     group: docker
     state: present
-  with_items: docker_users
+  with_items: "{{ docker_users }}"
   when: docker_users is defined
 
-- name: Install pip, python-dev package with apt
+- name: install pip, python-dev package with apt
   apt:
     pkg: "{{ item }}"
     state: latest
@@ -49,23 +49,27 @@
     - python-dev
     - python-pip
 
+- name: ensure pip latest version
+  pip:
+   name: pip
+   state: latest
+  ignore_errors: yes
+
 - name: install docker-compose
   pip:
     name: "{{ item }}"
     state: present
   with_items:
-    - pip
     - setuptools
     - docker-py
     - docker-compose
-  ignore_errors: yes
 
-- name: Check if /etc/updatedb.conf exists
+- name: check if /etc/updatedb.conf exists
   stat:
     path: /etc/updatedb.conf
   register: updatedb_conf_exists
 
-- name: Ensure updatedb does not index /var/lib/docker
+- name: ensure updatedb does not index /var/lib/docker
   lineinfile:
     dest: /etc/updatedb.conf
     state: present
@@ -74,12 +78,12 @@
     line: 'PRUNEPATHS="/var/lib/docker \2"'
   when: updatedb_conf_exists.stat.exists
 
-- name: Check if /etc/default/ufw exists
+- name: check if /etc/default/ufw exists
   stat:
     path: /etc/default/ufw
   register: ufw_default_exists
 
-- name: Change ufw default forward policy from drop to accept
+- name: ensure ufw DEFAULT_FORWARD_POLICY is accept
   lineinfile:
     dest: /etc/default/ufw
     regexp: "^DEFAULT_FORWARD_POLICY="
