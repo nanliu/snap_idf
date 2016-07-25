@@ -17,10 +17,6 @@
   changed_when: False
   ignore_errors: True
 
-- name: install vagrant
-  apt:
-    deb: http://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
-
 - name: install virtualbox kernel driver
   command: /sbin/rcvboxdrv setup
   when: vbox_driver|failed
@@ -33,3 +29,29 @@
     name: virtualbox-5.0
     update_cache: yes
     state: present
+
+- name: install vagrant
+  apt:
+    deb: http://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
+
+# NOTE: disabled for now
+#- name: install vagrant-proxyconf
+#  shell: vagrant plugin list | grep vagrant-proxyconf || vagrant plugin install vagrant-proxyconf
+#  become_user: "{{ item }}"
+#  with_items: "{{ student_users }}"
+
+- name: check ubuntu1604 box
+  shell: vagrant box list | grep ubuntu1604
+  register: "ubuntu_box"
+  become_user: "{{ item }}"
+  with_items: "{{ student_users }}"
+  changed_when: False
+  ignore_errors: True
+  tags: vagrant_box
+
+- name: download ubuntu1604 box
+  shell: vagrant box add boxcutter/ubuntu1604 --provider virtualbox
+  become_user: "{{ item.item }}"
+  when: item|failed
+  with_items: "{{ ubuntu_box.results }}"
+  tags: vagrant_box
