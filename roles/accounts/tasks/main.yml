@@ -13,14 +13,50 @@
     state: latest
   with_items:
     - jq
+    - tree
     - vim
     - zsh
+
+#- name: clean zprezto folders
+#  file:
+#    path: "/home/{{ item }}/.zprezto"
+#    state: absent
+#  with_items: "{{ student_users }}"
+
+- name: add zprezto
+  git:
+    repo: https://github.com/sorin-ionescu/prezto.git
+    dest: "/home/{{ item }}/.zprezto"
+    update: no
+    accept_hostkey: yes
+  become_user: "{{ item }}"
+  with_items: "{{ student_users }}"
+  when: student_users is defined
+
+- name: add zsh configs
+  file:
+    path: /home/{{ item[0] }}/.{{ item[1] }}
+    owner: "{{ item[0] }}"
+    group: "{{ item[0] }}"
+    src: /home/{{ item[0] }}/.zprezto/runcoms/{{ item[1] }}
+    state: link
+  with_nested:
+    - "{{ student_users }}"
+    - [ 'zlogin', 'zlogout', 'zpreztorc', 'zprofile', 'zshenv', 'zshrc' ]
+
+- name: source /etc/environment
+  lineinfile:
+    dest: "/home/{{ item }}/.zshrc"
+    line: 'source /etc/environment'
+    state: present
+  become_user: "{{ item }}"
+  with_items: "{{ student_users }}"
 
 - name: add student accounts
   user: 
     name: "{{ item }}"
     comment: "Student {{ item }} account"
-    password: $6$XHEzcCODbBtG4z.$ouGlgmAkXfOLZDhWy6SVPM7JSPatutckHKvvmnzat5MiCItBEbclskSeWPiceMVLlu4JvHwuXbuzSrbnLayDs0
+    password: $6$6hlo87IBVE6$oR.Q9wx.EZKu8gk3J8RxiamCcdiBhOki96Pb4NZWhSXayv27Dx4wh0PnT92v6M6M6LRzA7zw/q4U7uJXFa7ER0
     shell: /bin/zsh
     state: present
   with_items: "{{ student_users }}"
