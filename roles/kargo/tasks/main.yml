@@ -1,10 +1,12 @@
 - name: kargo repo
   git:
-    repo: https://github.com/kubespray/kargo.git
-    dest: "/home/{{ student_account }}/kargo"
+    repo: https://github.com/nanliu/kargo.git
+    reference: origin/idf
+    dest: "/home/{{ item }}/kargo"
     accept_hostkey: yes
   become: yes
-  become_user: "{{ student_account }}"
+  become_user: "{{ item }}"
+  with_items: "{{ student_users }}"
 
 - name: ansible repo
   apt_repository:
