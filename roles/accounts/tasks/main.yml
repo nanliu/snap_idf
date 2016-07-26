@@ -12,10 +12,21 @@
     name: "{{ item }}"
     state: latest
   with_items:
+    - git
     - jq
     - tree
     - vim
     - zsh
+
+- name: add student accounts
+  user:
+    name: "{{ item }}"
+    comment: "Student {{ item }} account"
+    password: $6$6hlo87IBVE6$oR.Q9wx.EZKu8gk3J8RxiamCcdiBhOki96Pb4NZWhSXayv27Dx4wh0PnT92v6M6M6LRzA7zw/q4U7uJXFa7ER0
+    shell: /bin/zsh
+    state: present
+  with_items: "{{ student_users }}"
+  when: student_users is defined
 
 #- name: clean zprezto folders
 #  file:
@@ -51,13 +62,3 @@
     state: present
   become_user: "{{ item }}"
   with_items: "{{ student_users }}"
-
-- name: add student accounts
-  user: 
-    name: "{{ item }}"
-    comment: "Student {{ item }} account"
-    password: $6$6hlo87IBVE6$oR.Q9wx.EZKu8gk3J8RxiamCcdiBhOki96Pb4NZWhSXayv27Dx4wh0PnT92v6M6M6LRzA7zw/q4U7uJXFa7ER0
-    shell: /bin/zsh
-    state: present
-  with_items: "{{ student_users }}"
-  when: student_users is defined
