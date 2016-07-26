@@ -1,7 +1,7 @@
 - name: kargo repo
   git:
     repo: https://github.com/nanliu/kargo.git
-    reference: origin/idf
+    refspec: refs/heads/idf
     dest: "/home/{{ item }}/kargo"
     accept_hostkey: yes
   become: yes
