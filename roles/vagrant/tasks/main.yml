@@ -11,6 +11,12 @@
     - http://www.virtualbox.org/download/oracle_vbox.asc
     - http://www.virtualbox.org/download/oracle_vbox_2016.asc
 
+- name: install virtualbox
+  apt:
+    name: virtualbox-5.0
+    update_cache: yes
+    state: present
+
 - name: check virtualbox kernel driver
   command: /sbin/rcvboxdrv status | grep "are loaded"
   register: vbox_driver
@@ -23,12 +29,6 @@
   notify:
     - restart computer
     - wait for restart
-
-- name: install virtualbox
-  apt:
-    name: virtualbox-5.0
-    update_cache: yes
-    state: present
 
 - name: install vagrant
   apt:
