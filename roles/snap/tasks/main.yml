@@ -1,0 +1,46 @@
+- name: idflab folders
+  file:
+    path: "/home/{{ item }}/idflab/"
+    owner: "{{ item }}"
+    state: directory
+  with_items: "{{ student_users }}"
+  tags: snap_binary
+
+- name: snap ubuntu package
+  get_url:
+    url: http://xenial.pkg.dl.snap-telemetry.io
+    dest: "/home/{{ item }}/idflab/snap-telemetry_0.15.0-1xenial_amd64.deb"
+    mode: "0644"
+  with_items: "{{ student_users }}"
+  tags: snap_binary
+
+- name: snap plugins
+  get_url:
+    url: http://linux.tar.dl.snap-telemetry.io
+    dest: "/home/{{ item }}/idflab/snap-plugins.tar.gz"
+    mode: "0644"
+  with_items: "{{ student_users }}"
+  tags: snap_binary
+
+# NOTE: Intel PCM plugin requirements:
+- name: /opt/intel foder
+  file:
+    path: /opt/intel
+    state: directory
+
+- name: intel pcm 2.11
+  unarchive:
+    dest: /opt/intel
+    src: IntelPerformanceCounterMonitor-V2.11.zip
+  ignore_errors: True #NOTE: cleanup later
+
+- name: enable msr
+  modprobe:
+    name: msr
+    state: present
+
+- name: disable kernel.nmi_watchdog=0
+  sysctl:
+    name: kernel.nmi_watchdog
+    value: 0
+    state: present

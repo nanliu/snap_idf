@@ -7,6 +7,11 @@
   vars:
       ansible_ssh_pipelining: no
 
+- name: remove snapd package
+  apt:
+    name: snapd
+    state: absent
+
 - name: install student tools
   apt:
     name: "{{ item }}"
@@ -24,6 +29,7 @@
     comment: "Student {{ item }} account"
     password: $6$6hlo87IBVE6$oR.Q9wx.EZKu8gk3J8RxiamCcdiBhOki96Pb4NZWhSXayv27Dx4wh0PnT92v6M6M6LRzA7zw/q4U7uJXFa7ER0
     shell: /bin/zsh
+    groups: sudo
     state: present
   with_items: "{{ student_users }}"
   when: student_users is defined

@@ -22,3 +22,22 @@
   apt:
     name: python-netaddr
     state: latest
+
+- name: cache container images
+  docker_image:
+    name: "{{ item.value.name }}"
+    tag:  "{{ item.value.tag }}"
+  with_dict:
+    registry:
+      name: registry
+      tag: 2
+    minikube:
+      name: gcr.io/google_containers/echoserver
+      tag: 1.4
+    registry-proxy:
+      name: gcr.io/google_containers/kube-registry-proxy
+      tag: 0.3
+    grafana:
+      name: grafana/grafana
+      tag: 3.1.0
+  tags: containers
