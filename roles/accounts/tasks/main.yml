@@ -69,3 +69,24 @@
     state: present
   become_user: "{{ item }}"
   with_items: "{{ student_users }}"
+
+- name: kubectl
+  get_url:
+    url: https://storage.googleapis.com/kargo/v1.3.0_kubernetes-kubectl
+    dest: /usr/local/bin/kubectl
+    owner: root
+    group: root
+    mode: 0755
+
+- name: kubectl autocomplete
+  shell: 'kubectl completion zsh > /etc/kubectl_completion'
+  args:
+    creates: '/etc/kubectl_completion'
+
+- name: source /etc/kubectl_completion
+  lineinfile:
+    dest: "/home/{{ item }}/.zshrc"
+    line: 'source /etc/kubectl_completion'
+    state: present
+  become_user: "{{ item }}"
+  with_items: "{{ student_users }}"
