@@ -34,6 +34,18 @@
     src: IntelPerformanceCounterMonitor-V2.11.zip
   ignore_errors: True #NOTE: cleanup later
 
+- name: make pcm
+  shell: make
+  args:
+    chdir: /opt/intel/IntelPerformanceCounterMonitor-V2.11
+    creates: /opt/intel/IntelPerformanceCounterMonitor-V2.11/pcm.x
+
+- name: pcm.x binary
+  file:
+    dest: /usr/local/bin/pcm.x
+    src: /opt/intel/IntelPerformanceCounterMonitor-V2.11/pcm.x
+    state: link
+
 - name: enable msr
   modprobe:
     name: msr
@@ -44,3 +56,9 @@
     name: kernel.nmi_watchdog
     value: 0
     state: present
+
+- name: pcm ksysguard example
+  copy:
+    dest: /home/{{ item }}/idflab/intel_pcm.sgrd
+    src:  intel_pcm.sgrd
+  with_items: "{{ student_users }}"
