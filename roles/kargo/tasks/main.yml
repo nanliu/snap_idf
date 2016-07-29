@@ -1,8 +1,8 @@
 - name: kargo repo
   git:
     repo: https://github.com/nanliu/kargo.git
-    refspec: refs/heads/idf
     dest: "/home/{{ item }}/kargo"
+    version: 'idf'
     accept_hostkey: yes
   become: yes
   become_user: "{{ item }}"
@@ -40,4 +40,14 @@
     grafana:
       name: grafana/grafana
       tag: 3.1.0
+  tags: containers
+
+- name: run grafana
+  docker_container:
+    name: grafana-snap
+    image: grafana/grafana
+    ports:
+      - '3000:3000'
+    env:
+      GF_INSTALL_PLUGINS: grafana-clock-panel,raintank-snap-app
   tags: containers
