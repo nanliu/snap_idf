@@ -1,14 +1,17 @@
 ---
-- hosts: lenovo
+- hosts: laptop
   become: yes
   become_user: root
   become_method: sudo
   environment:
-    http_proxy: http://proxy-chain.intel.com:911
-    https_proxy: http://proxy-chain.intel.com:911
+    #http_proxy: http://proxy-chain.intel.com:911
+    #https_proxy: http://proxy-chain.intel.com:911
+    http_proxy: http://192.168.1.2:3128
+    https_proxy: http://192.168.1.2:3128
   roles:
     - accounts
     #- hidpi
     - docker
     - vagrant
     - kargo
+    - snap

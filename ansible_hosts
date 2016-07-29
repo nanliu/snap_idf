@@ -1,2 +1,3 @@
-[lenovo]
-10.7.161.151 ansible_user=demo
+[laptop]
+192.168.1.230 ansible_user=idf
+192.168.1.231 ansible_user=idf
