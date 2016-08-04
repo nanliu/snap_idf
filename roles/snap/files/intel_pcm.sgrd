@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE KSysGuardWorkSheet>
+<WorkSheet title="Intel PCM" rows="3" interval="1" locked="0" columns="1">
+ <host name="local" command="/opt/intel/IntelPerformanceCounterMonitor-V2.11/pcm-sensor.x" port="-1" shell=""/>
+ <display showUnit="0" columnSpan="1" autoRange="1" title="Frequency" svgBackground="" manualRange="0" vScroll="0" column="0" row="0" version="1" vDistance="30" stacked="0" hLines="1" hScale="6" fontSize="8" rowSpan="1" labels="1" unit="" class="FancyPlotter" vLines="0">
+  <beam sensorType="float" sensorName="Socket0/CPU0/Frequency" hostName="local" color="0xff0057ae"/>
+  <beam sensorType="float" sensorName="Socket0/CPU1/Frequency" hostName="local" color="0xffe20800"/>
+  <beam sensorType="float" sensorName="Socket0/CPU2/Frequency" hostName="local" color="0xfff3c300"/>
+  <beam sensorType="float" sensorName="Socket0/CPU3/Frequency" hostName="local" color="0xffff0000"/>
+  <beam sensorType="float" sensorName="Socket0/CPU4/Frequency" hostName="local" color="0xff00a900"/>
+  <beam sensorType="float" sensorName="Socket0/CPU5/Frequency" hostName="local" color="0xff0028a9"/>
+  <beam sensorType="float" sensorName="Socket0/CPU6/Frequency" hostName="local" color="0xffa92928"/>
+  <beam sensorType="float" sensorName="Socket0/CPU7/Frequency" hostName="local" color="0xff28a929"/>
+ </display>
+ <display showUnit="0" columnSpan="1" autoRange="1" title="L2CacheHitRatio" svgBackground="" manualRange="0" vScroll="0" column="0" row="1" version="1" vDistance="30" stacked="0" hLines="1" hScale="6" fontSize="8" rowSpan="1" labels="1" unit="" class="FancyPlotter" vLines="0">
+  <beam sensorType="float" sensorName="L2CacheHitRatio" hostName="local" color="0xff0057ae"/>
+  <beam sensorType="float" sensorName="L3CacheHitRatio" hostName="local" color="0xffe20800"/>
+ </display>
+ <display showUnit="0" columnSpan="1" autoRange="1" title="CPUEnergy" svgBackground="" manualRange="0" vScroll="0" column="0" row="2" version="1" vDistance="30" stacked="0" hLines="1" hScale="6" fontSize="8" rowSpan="1" labels="1" unit="" class="FancyPlotter" vLines="0">
+  <beam sensorType="float" sensorName="CPUEnergy" hostName="local" color="0xff0057ae"/>
+ </display>
+</WorkSheet>

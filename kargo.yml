@@ -9,9 +9,4 @@
     http_proxy: http://192.168.1.2:3128
     https_proxy: http://192.168.1.2:3128
   roles:
-    - accounts
-    #- hidpi
-    - docker
-    - vagrant
-    - kargo
-    - snap
+    - kargo_up

@@ -22,6 +22,31 @@
   with_items: "{{ student_users }}"
   tags: snap_binary
 
+- name: cache container images
+  docker_image:
+    name: "{{ item.value.name }}"
+    tag:  "{{ item.value.tag }}"
+  with_dict:
+    snap-slim:
+      name: nanliu/snap-slim
+      tag: latest
+    heapster-slim:
+      name: nanliu/heapster-slim
+      tag: latest
+    addon-resizer:
+      name: gcr.io/google_containers/addon-resizer
+      tag: 1.0
+    influxdb-grafana:
+      name: nanliu/grafana-snap
+      tag: latest
+    influxdb:
+      name: gcr.io/google_containers/heapster_influxdb
+      tag: v0.5
+    hpa-example:
+      name: gcr.io/google_containers/hpa-example
+      tag: latest
+  tags: containers
+
 # NOTE: Intel PCM plugin requirements:
 - name: /opt/intel foder
   file:

@@ -1,0 +1,18 @@
+- name: check kargo vm exists
+  shell: vagrant snapshot list | grep push
+  args:
+    chdir: "/home/{{ item }}/kargo/"
+  register: "kargo_vm"
+  become_user: "{{ item }}"
+  with_items: "{{ student_users }}"
+  changed_when: False
+  ignore_errors: True
+  tags: kargo_vm
+
+- name: vagrant up
+  shell: vagrant destroy -f && vagrant up && vagrant ssh k8s-01 -c 'kubectl create -f /vagrant/configs/registry' && sleep 30 && vagrant halt -f && vagrant snapshot push
+  args:
+    chdir: "/home/{{ item.item }}/kargo/"
+  when: item|failed
+  become_user: "{{ item.item }}"
+  with_items: "{{ kargo_vm.results }}"

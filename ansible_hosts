@@ -1,3 +1,80 @@
 [laptop]
-192.168.1.230 ansible_user=idf
-192.168.1.231 ansible_user=idf
+#192.168.1.45 ansible_user=idf
+#192.168.1.161 ansible_user=idf
+#192.168.1.201 ansible_user=idf
+#192.168.1.188 ansible_user=idf
+#192.168.1.219 ansible_user=idf
+#192.168.1.212 ansible_user=idf
+#192.168.1.28 ansible_user=idf
+
+#192.168.1.58 ansible_user=idf
+#192.168.1.246 ansible_user=idf
+#192.168.1.205 ansible_user=idf
+#192.168.1.133 ansible_user=idf
+#192.168.1.56 ansible_user=idf
+#192.168.1.82 ansible_user=idf
+#192.168.1.168 ansible_user=idf
+
+#192.168.1.48 ansible_user=idf
+#192.168.1.38 ansible_user=idf
+#192.168.1.221 ansible_user=idf
+#192.168.1.21 ansible_user=idf
+#192.168.1.59 ansible_user=idf
+#192.168.1.245 ansible_user=idf
+#192.168.1.208 ansible_user=idf
+
+#192.168.1.119 ansible_user=idf
+#192.168.1.107 ansible_user=idf
+#192.168.1.169 ansible_user=idf
+#192.168.1.199 ansible_user=idf
+#192.168.1.198 ansible_user=idf
+#192.168.1.207 ansible_user=idf
+#192.168.1.52 ansible_user=idf
+
+#192.168.1.242 ansible_user=idf
+#192.168.1.218 ansible_user=idf
+#192.168.1.98 ansible_user=idf
+#192.168.1.57 ansible_user=idf
+#192.168.1.85 ansible_user=idf
+#192.168.1.194 ansible_user=idf
+#192.168.1.237 ansible_user=idf
+
+#192.168.1.172 ansible_user=idf
+#192.168.1.32 ansible_user=idf
+#192.168.1.226 ansible_user=idf
+#192.168.1.91 ansible_user=idf
+#192.168.1.130 ansible_user=idf
+#192.168.1.70 ansible_user=idf
+#192.168.1.189 ansible_user=idf
+
+#192.168.1.95 ansible_user=idf
+#10.7.161.54 ansible_user=idf
+
+#192.168.1.32 ansible_user=idf
+#192.168.1.91 ansible_user=idf
+#192.168.1.226 ansible_user=idf
+#192.168.1.172 ansible_user=idf
+#192.168.1.244 ansible_user=idf
+#192.168.1.95 ansible_user=idf
+#192.168.1.130 ansible_user=idf
+#192.168.1.246 ansible_user=idf
+#192.168.1.190 ansible_user=idf
+
+#192.168.1.237 ansible_user=idf
+#192.168.1.194 ansible_user=idf
+#192.168.1.98 ansible_user=idf
+#192.168.1.57 ansible_user=idf
+#192.168.1.119 ansible_user=idf
+#192.168.1.85 ansible_user=idf
+#192.168.1.218 ansible_user=idf
+#192.168.1.70 ansible_user=idf
+
+192.168.1.107 ansible_user=idf
+192.168.1.169 ansible_user=idf
+192.168.1.189 ansible_user=idf
+192.168.1.198 ansible_user=idf
+192.168.1.199 ansible_user=idf
+192.168.1.207 ansible_user=idf
+192.168.1.208 ansible_user=idf
+192.168.1.242 ansible_user=idf
+
