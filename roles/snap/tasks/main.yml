@@ -22,6 +22,7 @@
   with_items: "{{ student_users }}"
   tags: snap_binary
 
+# Download containers
 - name: cache container images
   docker_image:
     name: "{{ item.value.name }}"
@@ -30,22 +31,77 @@
     snap-slim:
       name: nanliu/snap-slim
       tag: latest
+      repo: localhost:5000/snap
     heapster-slim:
       name: nanliu/heapster-slim
       tag: latest
+      repo: localhost:5000/heapster-snap
     addon-resizer:
       name: gcr.io/google_containers/addon-resizer
       tag: 1.0
+      repo: localhost:5000/addon-resizer
     influxdb-grafana:
       name: nanliu/grafana-snap
       tag: latest
+      repo: localhost:5000/grafana-snap
     influxdb:
       name: gcr.io/google_containers/heapster_influxdb
       tag: v0.5
+      repo: localhost:5000/heapster_influxdb
     hpa-example:
       name: gcr.io/google_containers/hpa-example
       tag: latest
+      repo: localhost:5000/hpa-example
   tags: containers
+
+# Tag containers localhost:5000
+- name: cache container images
+  docker_image:
+    name: "{{ item.value.name }}"
+    repository: "{{ item.value.repo }}"
+    tag:  "{{ item.value.tag }}"
+  with_dict:
+    snap-slim:
+      name: nanliu/snap-slim
+      tag: latest
+      repo: localhost:5000/snap
+    heapster-slim:
+      name: nanliu/heapster-slim
+      tag: latest
+      repo: localhost:5000/heapster-snap
+    addon-resizer:
+      name: gcr.io/google_containers/addon-resizer
+      tag: 1.0
+      repo: localhost:5000/addon-resizer
+    influxdb-grafana:
+      name: nanliu/grafana-snap
+      tag: latest
+      repo: localhost:5000/grafana-snap
+    influxdb:
+      name: gcr.io/google_containers/heapster_influxdb
+      tag: v0.5
+      repo: localhost:5000/heapster_influxdb
+    hpa-example:
+      name: gcr.io/google_containers/hpa-example
+      tag: latest
+      repo: localhost:5000/hpa-example
+    minikube:
+      name: gcr.io/google_containers/echoserver
+      tag: 1.4
+      repo: localhost:5000/echoserver
+    registry-proxy:
+      name: gcr.io/google_containers/kube-registry-proxy
+      tag: 0.3
+      repo: localhost:5000/kube-registry-proxy
+  tags: containers
+
+- name: copy push container image script
+  copy:
+    src: push_images
+    dest: /usr/local/bin/push_images
+    owner: root
+    group: root
+    mode: '0755'
 
 # NOTE: Intel PCM plugin requirements:
 - name: /opt/intel foder
